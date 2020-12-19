@@ -1,17 +1,95 @@
-import React from 'react';
+import React, {useState, useEffect}  from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+import {DisplayCountryName, DisplayCountryDetails, DisplayCityDetails} from './components/display'
+import './index.css'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const Display = ( {data, showHandler } ) => {
+//   console.log('display component reached!')
+  if (data.length > 10 ) {
+    return (<p>Please type a more specific query</p>)
+  }
+  else if (data.length > 1) {
+    console.log('data', data)
+    console.log('greater than 1 country reached!')
+    // console.log('type of is: ', typeof display)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    return (  
+      <div className = "main-container">
+      {data.map(countryDetails => <DisplayCountryName countryName = {countryDetails.name} showHandler = {showHandler}/>)}
+      </div>
+      
+      )}
+      else if (data.length === 1) {
+        return (
+          <>
+          {data.map(country => <DisplayCountryDetails country = {data[0]} key = {data[0].name} />)}
+          </>
+
+        )}
+
+  else {
+    return <p>Not Found</p>
+  }
+  }
+
+const App = () => {
+    const [info, setInfo] = useState( [] )
+    const [countriesToShow, setCountriesToShow] = useState([]);
+
+    // const [cityDetails, setCityDetails ] = useState ({});
+    const [input, setInput] = useState('');
+
+
+    const updateCountries = (searchQuery) => {
+            setCountriesToShow(info.filter( (country ) =>  country.name.toLowerCase().startsWith(searchQuery.toLowerCase())))
+
+    }
+
+
+    const inputHandler = (event) => {
+        updateCountries(event.target.value)
+        // setCountriesToShow(info.filter( (country ) =>  country.name.toLowerCase().startsWith(event.target.value.toLowerCase())))
+        setInput(event.target.value)
+        // updateCountries()
+        
+        
+    }
+    const showCountryHandler = (countryName ) => {
+        setInput(countryName)
+        updateCountries(countryName)
+    }
+
+
+    useEffect( () => {
+        axios.get('https://restcountries.eu/rest/v2/all').then(
+        (response) => {
+        console.log('reached useffect!!')
+        
+        setInfo(response.data)
+        
+        // setCountriesToShow(response.data.filter( (country) => country.name.toLowerCase().startsWith(input)))
+        setCountriesToShow(response.data)
+        
+        }
+    ) }, [])
+
+
+    const display = <Display data = {countriesToShow} showHandler = {showCountryHandler} />
+
+    return (
+        <>
+        <h1>Countries</h1>
+        Search Countries: <input value = {input} onChange = {inputHandler} />
+        <h2>
+        Countries to show:
+        </h2>
+        {display }
+
+        {countriesToShow.length === 1 ? <DisplayCityDetails cityName = {countriesToShow[0].capital} /> : ''}
+        
+        </>
+    )
+    }
+
+ReactDOM.render(<App />, document.getElementById('root'));
