@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+## This app is created with React. It tells you demographic information about all the countries. Enjoy
+
+
 ## Available Scripts
 
 In the project directory, you can run:
