@@ -85,9 +85,16 @@ const App = () => {
         <>
         <link rel="stylesheet" href= "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
         <div className = "parent-container">
-          <h1 className = "jumbotron">Countries</h1>
+          <h1 className = "jumbotron">
+            Countries
+            <p className = "lead">Hi, this is a Web App that provides you with demographic information about different countries. It's build with 
+            react and uses  API from restcountries.eu</p>
+            
+            </h1>
           <div className = "search-container">
+
             Search Countries <input value = {input} onChange = {inputHandler} className = "search" />
+
             <button className = "btn btn-primary clear-btn" onClick = {clearInput}>Clear Input</button>
           </div>
 
@@ -99,5 +106,3 @@ const App = () => {
     }
 
 ReactDOM.render(<App />, document.getElementById('root'));
-
-
