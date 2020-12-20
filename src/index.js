@@ -79,17 +79,20 @@ const App = () => {
 
     return (
         <>
-        <h1>Countries</h1>
-        Search Countries: <input value = {input} onChange = {inputHandler} />
-        <h2>
-        Countries to show:
-        </h2>
-        {display }
-
-        {countriesToShow.length === 1 ? <DisplayCityDetails cityName = {countriesToShow[0].capital} /> : ''}
-        
+        <link rel="stylesheet" href= "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+        <div className = "parent-container">
+          <h1 className = "jumbotron">Countries</h1>
+          Search Countries: <input value = {input} onChange = {inputHandler} />
+          <h2>
+            Countries to show:
+          </h2>
+          {display }
+          {countriesToShow.length === 1 ? <DisplayCityDetails cityName = {countriesToShow[0].capital} /> : ''}
+        </div>
         </>
     )
     }
 
 ReactDOM.render(<App />, document.getElementById('root'));
+
+
