@@ -60,6 +60,10 @@ const App = () => {
         updateCountries(countryName)
     }
 
+    const clearInput = () => {
+      setInput('');
+      updateCountries('')
+    }
 
     useEffect( () => {
         axios.get('https://restcountries.eu/rest/v2/all').then(
@@ -82,10 +86,11 @@ const App = () => {
         <link rel="stylesheet" href= "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
         <div className = "parent-container">
           <h1 className = "jumbotron">Countries</h1>
-          Search Countries: <input value = {input} onChange = {inputHandler} />
-          <h2>
-            Countries to show:
-          </h2>
+          <div className = "search-container">
+            Search Countries <input value = {input} onChange = {inputHandler} className = "search" />
+            <button className = "btn btn-primary clear-btn" onClick = {clearInput}>Clear Input</button>
+          </div>
+
           {display }
           {countriesToShow.length === 1 ? <DisplayCityDetails cityName = {countriesToShow[0].capital} /> : ''}
         </div>

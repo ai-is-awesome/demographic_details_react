@@ -28,3 +28,20 @@ code {
   min-heigth: 100%;
 }
   
+
+.parent-container {
+  text-align: center;
+}
+
+
+.search {
+  color: black;
+}
+
+
+
+.clear-btn {
+  margin-left: 10px;
+  margin-top : 10px;
+  height: 40px;
+}
